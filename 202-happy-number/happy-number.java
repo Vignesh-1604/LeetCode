@@ -1,20 +1,23 @@
 class Solution {
     public boolean isHappy(int n) {
-        if(n==1){
+        int slow =n;
+        int fast=n;
+        do{
+            slow=find(slow);
+            fast=find(find(fast));
+        }while(fast!=slow);
+        if(slow==1){
             return true;
         }
-        else if(n==4){
-            return false;
+        return false;
+    }
+    private int find(int num){
+        int ans=0;
+        while(num>0){
+            int rem=num%10;
+            ans+=rem*rem;
+            num/=10;
         }
-        else{
-            int sum=0;
-            while(n>0){
-            int d=n%10;
-            double c=Math.pow(d,2);
-            sum+=c;
-            n/=10;
-        }
-        return isHappy(sum);
-        }
+        return ans;
     }
 }
